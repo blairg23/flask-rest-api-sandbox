@@ -1,8 +1,4 @@
-from flask import Flask
-from flask_restful import Resource, Api, reqparse, abort#, fields, marshal_with
-
-app = Flask(__name__)
-api = Api(app)
+from flask_restful import Resource, reqparse, abort
 
 USERS = {
 	'user1': {'first_name': 'bill', 'last_name': 'billiams', 'birthdate': '20160101', 'zip_code': '11111'},
@@ -12,12 +8,6 @@ USERS = {
 	'user5': {'first_name': 'nutflux', 'last_name': 'reader', 'birthdate': '20160101', 'zip_code': '55555'}
 }
 
-# resource_fields = {
-# 	'first_name':   fields.String,
-# 	'last_name':   fields.String,
-# 	'birthdate':   fields.Date,
-# 	'zip_code':   fields.Integer
-# }
 
 parser = reqparse.RequestParser()
 parser.add_argument('first_name', type=str, help='User\'s first name.')
@@ -30,16 +20,9 @@ def abort_if_user_doesnt_exist(user_id):
 	if user_id not in USERS:
 		abort(404, message="User {user_id} doesn't exist...".format(user_id=user_id))
 
-# class UserDao(object):
-#     def __init__(self, user_id, user):
-#         self.user_id = user_id
-#         self.user = user
 
-#         # This field will not be sent in the response
-#         self.status = 'active'
 
 class User(Resource):
-	# @marshal_with(resource_fields)
 
 	def get(self, user_id):
 		abort_if_user_doesnt_exist(user_id)
@@ -69,7 +52,6 @@ class User(Resource):
 
 
 class UserList(Resource):
-	# @marshal_with(resource_fields)
 
 	def get(self):
 		return USERS
@@ -91,10 +73,3 @@ class UserList(Resource):
 			}
 		USERS[user_id] = user
 		return USERS[user_id], 201
-
-api.add_resource(User, '/users/<string:user_id>')
-api.add_resource(UserList, '/users')
-
-
-if __name__ == '__main__':
-	app.run(debug=True)
