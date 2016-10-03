@@ -1,1 +1,1 @@
-web: gunicorn sandbox:application
+web: gunicorn sandbox
