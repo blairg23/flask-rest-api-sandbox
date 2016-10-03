@@ -15,6 +15,8 @@ Sandbox to play around with flask restful api stuff.
 
 * Navigate to the appropriate web URL (usually http://localhost:5000) and you should be presented with a login page.
 
+# Heroku APP: https://userlist-client-demo.herokuapp.com/
+
 # Login Credentials:
 
 **UN:** testy
