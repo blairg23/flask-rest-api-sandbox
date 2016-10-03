@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>UserList API Client Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+		<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+		<!-- For creating input masks: -->
+		<script src="/js/jquery.maskedinput.min.js"></script>
+		<!-- Our knockout file -->
+		<script src="/js/client.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">UserList API Client Demo</a>
+			</div>
+		</div>
+		<div id="main" class="container">
+			<table class="table table-striped">
+				<tr><td style="width: 1px;"></td><td><b>User</b></td><td><b>Options</b></td></tr>
+				<!-- ko foreach: users -->
+				<tr>
+					<td style="width: 1px;"></td>
+					<td>
+						<p>
+							<b>User:</b> <span data-bind="text: first_name"></span> <span data-bind="text: last_name"></span>
+						</p>
+						<p>
+							<b>Birthdate:</b> <span data-bind="text: birthdate"></span>
+						</p>
+						<p>
+							<b>ZIP Code:</b> <span data-bind="text: zip_code"></span>
+						</p>
+					</td>
+					<td>
+						<button data-bind="click: $parent.beginEdit" class="btn">Edit</button>
+						<button data-bind="click: $parent.remove" class="btn">Delete</button>
+					</td>
+				</tr>
+				<!-- /ko -->
+			</table>
+			<button data-bind="click: beginAdd" class="btn">Add User</button>
+		</div>
+		<div id="add" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="addDialogLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="addDialogLabel">Add User</h3>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label" for="inputUser">First Name</label>
+						<div class="controls">
+							<input data-bind="value: first_name" type="text" id="inputFirstName" placeholder="First Name" style="width: 150px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputUser">Last Name</label>
+						<div class="controls">
+							<input data-bind="value: last_name" type="text" id="inputLastName" placeholder="Last Name" style="width: 150px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputUser">Birthdate</label>
+						<div class="controls">
+							<input data-bind="masked: birthdate, mask: '9999-99-99'" type="text" id="inputBirthdate" placeholder="YYYY-MM-DD" style="width: 150px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputUser">ZIP Code</label>
+						<div class="controls">
+							<input data-bind="masked: zip_code, mask: '99999'" type="text" id="inputZipCode" placeholder="e.g. 55555" style="width: 150px;">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button data-bind="click: addUser" class="btn btn-primary">Add User</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			</div>
+		</div>
+		<div id="edit" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="editDialogLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="editDialogLabel">Edit User</h3>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label" for="inputUser">First Name</label>
+						<div class="controls">
+							<input data-bind="value: first_name" type="text" id="inputFirstName" placeholder="First Name" style="width: 150px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputUser">Last Name</label>
+						<div class="controls">
+							<input data-bind="value: last_name" type="text" id="inputLastName" placeholder="Last Name" style="width: 150px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputUser">Birthdate</label>
+						<div class="controls">
+							<input data-bind="masked: birthdate, mask: '9999-99-99'" type="text" id="inputBirthdate" placeholder="YYYY-MM-DD" style="width: 150px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputUser">ZIP Code</label>
+						<div class="controls">
+							<input data-bind="masked: zip_code, mask: '99999'" type="text" id="inputZipCode" placeholder="e.g. 55555" style="width: 150px;">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button data-bind="click:editUser" class="btn btn-primary">Update User</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			</div>
+		</div>
+		<div id="login" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="loginLabel">Sign In</h3>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label" for="inputUsername">Username</label>
+						<div class="controls">
+							<input data-bind="value: username" type="text" id="inputUsername" placeholder="Username">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputPassword">Password</label>
+						<div class="controls">
+							<input data-bind="value: password" type="password" id="inputPassword" placeholder="Password">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button data-bind="click: login" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Sign In</button>
+			</div>
+		</div>
+		<!-- Knockout bindings -->
+		<script type="text/javascript">
+			var UsersViewModel = new UsersViewModel();
+			var AddUserViewModel = new AddUserViewModel();
+			var EditUserViewModel = new EditUserViewModel();
+			var loginViewModel = new LoginViewModel();
+			
+			ko.applyBindings(UsersViewModel, $('#main')[0]);
+			ko.applyBindings(AddUserViewModel, $('#add')[0]);
+			ko.applyBindings(EditUserViewModel, $('#edit')[0]);
+			ko.applyBindings(loginViewModel, $('#login')[0]);
+		</script>
+	</body>
+</html>
