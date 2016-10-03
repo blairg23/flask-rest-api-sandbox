@@ -1,6 +1,6 @@
 function UsersViewModel() {
 	var self = this;
-	self.usersURI = 'http://localhost:5000/userlist/api/v1.0/users';
+	self.usersURI = '/userlist/api/v1.0/users';
 	self.username = "";
 	self.password = "";
 	self.users = ko.observableArray();
@@ -21,8 +21,7 @@ function UsersViewModel() {
 			error: function(jqXHR) {
 				console.log("ajax error " + jqXHR.status);
 			}
-		};
-		console.log(request)
+		};		
 		return $.ajax(request);
 	}
 	self.updateUser = function(user, newUser) {

@@ -70,8 +70,7 @@ class User(Resource):
 
 
 	def put(self, user_id):		
-		user = return_user_or_abort(user_id)
-		print user
+		user = return_user_or_abort(user_id)		
 		args = self.parser.parse_args(strict=True)
 		for k, v in args.items():
 			if v is not None:

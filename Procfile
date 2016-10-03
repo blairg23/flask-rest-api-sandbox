@@ -1,1 +1,1 @@
-web: gunicorn sandbox
+web: gunicorn --pythonpath sandbox sandbox:app
