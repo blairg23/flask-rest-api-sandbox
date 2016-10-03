@@ -17,7 +17,8 @@ Sandbox to play around with flask restful api stuff.
 
 # Login Credentials:
 
-UN: testy
-PW: flask
+**UN:** testy
 
-*Enjoy!*
+**PW:** flask
+
+***Enjoy!***
