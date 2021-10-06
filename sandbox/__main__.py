@@ -1,5 +1,5 @@
 from sandbox import app as application
-from gevent.wsgi import WSGIServer
+from gevent.pywsgi import WSGIServer
 
 if __name__ == '__main__':
 	#application.run(debug=False)
